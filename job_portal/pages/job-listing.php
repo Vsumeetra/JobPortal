@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<?php $pageTitle = "Job Analytics"; include '../templates/header.php'; ?>
+<?php $pageTitle = "Job Listing"; include '../templates/header.php'; ?>
     <div class="container mt-5">
     <div class="container mt-5">
     <h2>Post a Job</h2>
@@ -103,6 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </form>
 </div>
 <script src="../assets/js/main.js"></script>
-<?php $pageTitle = "Job Analytics"; include '../templates/header.php'; ?>
+<?php include '../templates/footer.php';
+?>
 </body>
 </html>
