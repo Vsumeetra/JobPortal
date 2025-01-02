@@ -38,7 +38,7 @@ $applications_result = $conn->query($applications_query);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-  <?php $pageTitle = "Job Analytics"; include '../templates/header.php'; ?>
+  <?php $pageTitle = "Job Dashboard"; include '../templates/header.php'; ?>
     <div class="container mt-5">
         <h2>Application Tracking Dashboard</h2>
 
