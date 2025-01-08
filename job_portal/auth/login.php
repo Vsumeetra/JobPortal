@@ -1,12 +1,16 @@
 <?php
-session_start();
+// Ensuring session_start() is called only once.
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 include '../config/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    // Checking thee email existence
+    // Check if email exists
     $sql = "SELECT * FROM users WHERE email = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
@@ -15,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
+        // Verify password
         if (password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['name'] = $user['name'];
@@ -37,22 +42,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $pageTitle; ?></title>
-
-    <!-- Bootstrap CSS -->
+    <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="../assets/css/style.css">
+
+    <!--  Adiing responsiveness for other devices -->
+    <style>
+        @media (max-width: 576px) {
+            .login-container {
+                padding: 20px;
+            }
+            .form-label {
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
     <?php include '../templates/header.php'; ?>
 
-    <div class="container mt-5">
+    <div class="container mt-5 login-container">
         <div class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-6 col-sm-12">
                 <h2 class="text-center mb-4">Login</h2>
 
+                
                 <?php if (isset($error_message)): ?>
                     <div class="alert alert-danger"><?php echo $error_message; ?></div>
                 <?php endif; ?>
@@ -77,5 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 
     <?php include '../templates/footer.php'; ?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
