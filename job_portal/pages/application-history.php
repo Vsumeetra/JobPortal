@@ -29,38 +29,58 @@ $history_result = $conn->query($history_query);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<?php $pageTitle = "Job AppHistory"; include '../templates/header.php'; ?>
+<?php $pageTitle = "Application History"; include '../templates/header.php'; ?>
+
     <div class="container mt-5">
-        <h2>Application History</h2>
-        <table class="table table-striped mt-4">
-            <thead>
-                <tr>
-                    <th>Job Title</th>
-                    <th>Company</th>
-                    <th>Location</th>
-                    <th>Job Type</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2>Application History</h2>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
                 <?php if ($history_result && $history_result->num_rows > 0): ?>
-                    <?php while ($row = $history_result->fetch_assoc()): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($row['job_title']); ?></td>
-                            <td><?php echo htmlspecialchars($row['company_name']); ?></td>
-                            <td><?php echo htmlspecialchars($row['location']); ?></td>
-                            <td><?php echo htmlspecialchars($row['job_type']); ?></td>
-                            <td><?php echo htmlspecialchars($row['status']); ?></td>
-                        </tr>
-                    <?php endwhile; ?>
+                    <!-- Responsive Table -->
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Job Title</th>
+                                    <th>Company</th>
+                                    <th>Location</th>
+                                    <th>Job Type</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php while ($row = $history_result->fetch_assoc()): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($row['job_title']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['company_name']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['location']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['job_type']); ?></td>
+                                        <td>
+                                            <span class="badge 
+                                                <?php echo $row['status'] === 'New' ? 'bg-primary' : ''; ?>
+                                                <?php echo $row['status'] === 'Reviewed' ? 'bg-info' : ''; ?>
+                                                <?php echo $row['status'] === 'Interview Scheduled' ? 'bg-success' : ''; ?>">
+                                                <?php echo htmlspecialchars($row['status']); ?>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                <?php endwhile; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 <?php else: ?>
-                    <tr>
-                        <td colspan="5">No applications found.</td>
-                    </tr>
+                    <p class="text-center">No applications found.</p>
                 <?php endif; ?>
-            </tbody>
-        </table>
+            </div>
+        </div>
     </div>
+
     <?php include '../templates/footer.php'; ?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
