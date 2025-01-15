@@ -35,32 +35,44 @@ $analytics_result = $conn->query($analytics_query);
 <?php $pageTitle = "Job Analytics"; include '../templates/header.php'; ?>
 
     <div class="container mt-5">
-        <h2>Job Analytics Dashboard</h2>
-        <table class="table table-striped mt-4">
-            <thead>
-                <tr>
-                    <th>Job Title</th>
-                    <th>Views</th>
-                    <th>Applications Received</th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2>Job Analytics Dashboard</h2>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
                 <?php if ($analytics_result && $analytics_result->num_rows > 0): ?>
-                    <?php while ($row = $analytics_result->fetch_assoc()): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($row['title']); ?></td>
-                            <td><?php echo $row['views']; ?></td>
-                            <td><?php echo $row['applications']; ?></td>
-                        </tr>
-                    <?php endwhile; ?>
+                    <!-- Responsive Table -->
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Job Title</th>
+                                    <th>Views</th>
+                                    <th>Applications Received</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php while ($row = $analytics_result->fetch_assoc()): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($row['title']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['views']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['applications']); ?></td>
+                                    </tr>
+                                <?php endwhile; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 <?php else: ?>
-                    <tr>
-                        <td colspan="3">No data available.</td>
-                    </tr>
+                    <p class="text-center">No data available.</p>
                 <?php endif; ?>
-            </tbody>
-        </table>
+            </div>
+        </div>
     </div>
+
     <?php include '../templates/footer.php'; ?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
