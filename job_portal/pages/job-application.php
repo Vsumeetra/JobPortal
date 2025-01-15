@@ -105,31 +105,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apply for Job</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* custom styles for better responsiveness */
+        textarea {
+            resize: none;
+        }
+    </style>
 </head>
 <body>
     <?php $pageTitle = "Job Applications"; include '../templates/header.php'; ?>
     <div class="container mt-5">
-        <h2>Apply for: <?php echo htmlspecialchars($job['title']); ?></h2>
-        <p><strong>Company:</strong> <?php echo htmlspecialchars($job['company_name']); ?></p>
-        <p><strong>Location:</strong> <?php echo htmlspecialchars($job['location']); ?></p>
-        <p><strong>Job Type:</strong> <?php echo htmlspecialchars($job['job_type']); ?></p>
-        <p><strong>Salary:</strong> $<?php echo htmlspecialchars($job['salary_min']); ?> - $<?php echo htmlspecialchars($job['salary_max']); ?></p>
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center">Apply for: <?php echo htmlspecialchars($job['title']); ?></h2>
+                <p class="text-center"><strong>Company:</strong> <?php echo htmlspecialchars($job['company_name']); ?></p>
+                <p class="text-center"><strong>Location:</strong> <?php echo htmlspecialchars($job['location']); ?></p>
+                <p class="text-center"><strong>Job Type:</strong> <?php echo htmlspecialchars($job['job_type']); ?></p>
+                <p class="text-center"><strong>Salary:</strong> $<?php echo htmlspecialchars($job['salary_min']); ?> - $<?php echo htmlspecialchars($job['salary_max']); ?></p>
+            </div>
+        </div>
 
-        <form method="POST" enctype="multipart/form-data" class="mt-4">
-            <div class="mb-3">
-                <label for="resume" class="form-label">Upload Resume (Max: 5MB)</label>
-                <input type="file" name="resume" id="resume" class="form-control" required>
+        <div class="row mt-4">
+            <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+                <form method="POST" enctype="multipart/form-data" class="shadow p-4 rounded bg-light">
+                    <div class="mb-3">
+                        <label for="resume" class="form-label">Upload Resume (Max: 5MB)</label>
+                        <input type="file" name="resume" id="resume" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cover_letter" class="form-label">Cover Letter (Optional)</label>
+                        <textarea name="cover_letter" id="cover_letter" class="form-control" rows="4" placeholder="Write your cover letter here"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="linkedin_profile" class="form-label">LinkedIn Profile (Optional)</label>
+                        <input type="url" name="linkedin_profile" id="linkedin_profile" class="form-control" placeholder="https://linkedin.com/in/your-profile">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Submit Application</button>
+                </form>
             </div>
-            <div class="mb-3">
-                <label for="cover_letter" class="form-label">Cover Letter (Optional)</label>
-                <textarea name="cover_letter" id="cover_letter" class="form-control" rows="4"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="linkedin_profile" class="form-label">LinkedIn Profile (Optional)</label>
-                <input type="url" name="linkedin_profile" id="linkedin_profile" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit Application</button>
-        </form>
+        </div>
     </div>
     <?php include '../templates/footer.php'; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
