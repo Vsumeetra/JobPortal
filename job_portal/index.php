@@ -3,11 +3,11 @@ session_start();
 include './config/db.php';
 
 // Fetching recent jobs for display
-$recent_jobs_query = "SELECT title, company_name, location, job_type, salary_min, salary_max FROM jobs ORDER BY created_at DESC LIMIT 5";
+$recent_jobs_query = "SELECT id, title, company_name, location, job_type, salary_min, salary_max FROM jobs ORDER BY created_at DESC LIMIT 5";
 $recent_jobs_result = $conn->query($recent_jobs_query);
 
 $user_logged_in = isset($_SESSION['user_id']);
-$user_role = $_SESSION['role'] ?? null; 
+$user_role = $_SESSION['role'] ?? null;
 ?>
 
 <!DOCTYPE html>
@@ -60,10 +60,10 @@ $user_role = $_SESSION['role'] ?? null;
             <?php endif; ?>
         </div>
 
-        <div class="row mt-5">
+        <div class="row mt-5 g-4">
             <!-- Job Seekers Section -->
-            <div class="col-md-6">
-                <div class="card shadow">
+            <div class="col-md-6 col-lg-6">
+                <div class="card shadow h-100">
                     <div class="card-body">
                         <h3 class="card-title">For Job Seekers</h3>
                         <p class="card-text">Create your profile, search for jobs, and apply for positions with ease.</p>
@@ -72,8 +72,8 @@ $user_role = $_SESSION['role'] ?? null;
                 </div>
             </div>
             <!-- Employers Section -->
-            <div class="col-md-6">
-                <div class="card shadow">
+            <div class="col-md-6 col-lg-6">
+                <div class="card shadow h-100">
                     <div class="card-body">
                         <h3 class="card-title">For Employers</h3>
                         <p class="card-text">Post job listings, manage applications, and find the perfect candidates.</p>
@@ -83,8 +83,8 @@ $user_role = $_SESSION['role'] ?? null;
             </div>
         </div>
 
-        
-        <div class="row mt-5">
+        <!-- Features Section -->
+        <div class="row mt-5 g-4">
             <div class="col-md-4">
                 <h4>Job Search</h4>
                 <p>Find the perfect job by searching through our extensive database of opportunities.</p>
